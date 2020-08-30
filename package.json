@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "watch": "tsc -w",
-    "dev": "nodemon dist/index.js",
     "start": "ts-node src/index.ts",
     "start2": "ts-node dist/index.js",
-    "dev2": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -26,5 +25,19 @@
     "nodemon": "^2.0.4",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@mikro-orm/cli": "^4.0.0-alpha.0",
+    "@mikro-orm/core": "^4.0.0-alpha.0",
+    "@mikro-orm/migrations": "^4.0.0-alpha.0",
+    "@mikro-orm/postgresql": "^4.0.0-alpha.0",
+    "pg": "^8.3.3"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
   }
 }
