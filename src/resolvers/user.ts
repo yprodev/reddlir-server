@@ -72,7 +72,7 @@ export class UserResolver {
   }
 
   @Mutation(() => UserResponse)
-  async login(@Arg('options') options: UsernamePasswordInput, @Ctx() { em }: MyContext): Promise<UserResponse> {
+  async login(@Arg('options') options: UsernamePasswordInput, @Ctx() { em, req }: MyContext) {
     const user = await em.findOneOrFail(User, { username: options.username })
 
     if (!user) {
@@ -88,6 +88,8 @@ export class UserResolver {
         errors: [{ field: 'password', message: 'Incorrect password.' }]
       }
     }
+
+    req.session!.userId = user.id
 
     return {
       user
